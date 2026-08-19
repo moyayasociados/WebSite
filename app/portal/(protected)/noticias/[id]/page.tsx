@@ -1,0 +1,2 @@
+import { notFound } from 'next/navigation'; import { createClient } from '@/shared/lib/supabase/server'; import { NewsManager } from '@/features/admin/components/news-manager';
+export default async function EditNewsPage({params}:{params:Promise<{id:string}>}){const {id}=await params;const supabase=await createClient();const {data}=await supabase.from('blog_posts').select('*').eq('id',id).maybeSingle();if(!data)notFound();return <NewsManager initial={[data]} startEdit={data}/>}

@@ -1,0 +1,6 @@
+'use client';
+import { motion } from 'framer-motion';
+import { Handshake, Lightbulb, Eye, Star } from 'lucide-react';
+import type { AboutValue } from '@/shared/types/content';
+const icons:any={handshake:Handshake,lightbulb:Lightbulb,eye:Eye,star:Star};
+export function About({data}:{data:any}) { const values:AboutValue[]=data.values??[]; return <section id="about" className="bg-white py-24"><div className="mx-auto grid max-w-container items-center gap-16 px-4 md:grid-cols-2 md:px-10"><div><h2 className="font-display text-3xl font-bold text-primary md:text-4xl">{data.about.title}</h2>{(data.about.paragraphs??[]).map((p:string,i:number)=><p key={i} className="mt-6 text-lg leading-relaxed text-muted">{p}</p>)}</div><div className="grid gap-8 sm:grid-cols-2">{values.map((v:any,i:number)=>{const Icon=icons[v.icon]??Star; return <motion.div key={v.id??v.title} initial={{opacity:0,y:16}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{delay:i*.06}}><div className="mb-4 grid h-12 w-12 place-items-center rounded-lg bg-secondary/10 text-secondary"><Icon size={22}/></div><h3 className="font-display text-xl font-bold text-primary">{v.title}</h3><p className="mt-2 text-sm leading-6 text-muted">{v.description}</p></motion.div>})}</div></div></section>; }

@@ -1,0 +1,2 @@
+import { getAdminData } from '@/features/admin/lib/data'; import { ServicesManager } from '@/features/admin/components/services-manager';
+export default async function ServicesPage(){const d=await getAdminData();const merged=[...d.services.map(x=>({...x,kind:'service'})),...d.technologies.map(x=>({...x,kind:'technology'}))];return <main className="p-4 md:p-8"><div className="mx-auto max-w-[1200px]"><ServicesManager initial={merged}/></div></main>}

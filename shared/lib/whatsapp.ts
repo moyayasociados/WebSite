@@ -1,0 +1,1 @@
+export function whatsappUrl(number?:string){const n=number??process.env.NEXT_PUBLIC_WHATSAPP_NUMBER??'593999999999';return `https://wa.me/${n}?text=${encodeURIComponent('Hola, me gustaría recibir información sobre sus servicios.')}`;}
