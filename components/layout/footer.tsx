@@ -10,10 +10,10 @@ export function Footer({ config }: { config?: any }) {
   const social = config?.social ?? siteConfig.social;
   const footer = config?.footer ?? {};
   const companyLinks = [
-    ["Servicios", "/#services"],
-    ["Sobre Nosotros", "/#about"],
-    ["Blog", "/#blog"],
-    ["Contacto", "/#contact"],
+    ["Servicios", "/servicios"],
+    ["Sobre Nosotros", "/sobre-nosotros"],
+    ["Blog", "/novedades"],
+    ["Contacto", "/contacto"],
   ];
   const legalLinks = [
     ["Política de Privacidad", "/politica-privacidad"],
@@ -24,13 +24,13 @@ export function Footer({ config }: { config?: any }) {
     <footer className="bg-primary py-14 text-white">
       <div className="mx-auto grid max-w-container gap-10 px-4 md:grid-cols-4 md:px-10">
         <div className="md:col-span-2">
-          <a href="#home" className="inline-block">
+          <Link href="/inicio" className="inline-block">
             <img
               src={logoSrc}
               alt={site.name ?? siteConfig.name}
               className="h-20 w-auto object-contain"
             />
-          </a>
+          </Link>
           <p className="mt-5 max-w-md text-sm leading-6 text-white/55">
             {footer.description ?? site.description}
           </p>

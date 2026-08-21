@@ -35,14 +35,19 @@ export function LegalPage({
               En esta página
             </p>
             {sections.map((s) => (
-              <Link
+              <button
                 key={s.id}
-                href={`#${s.id}`}
-                onClick={() => setActive(s.id)}
-                className={`block border-b border-slate-100 py-3 text-sm transition ${active === s.id ? "font-bold text-secondary" : "text-muted hover:text-primary"}`}
+                type="button"
+                onClick={() => {
+                  setActive(s.id);
+                  document
+                    .getElementById(s.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`block w-full border-b border-slate-100 py-3 text-left text-sm transition ${active === s.id ? "font-bold text-secondary" : "text-muted hover:text-primary"}`}
               >
                 {s.title}
-              </Link>
+              </button>
             ))}
           </div>
         </aside>
@@ -70,7 +75,7 @@ export function LegalPage({
               comunicarse con nosotros.
             </p>
             <Link
-              href="/#contact"
+              href="/contacto"
               className="mt-6 inline-flex rounded-lg bg-secondary px-5 py-3 font-semibold text-white transition hover:brightness-110"
             >
               Contactar

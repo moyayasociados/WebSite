@@ -12,6 +12,7 @@ import {
   Workflow,
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
+import Link from "next/link";
 const icons: any = {
   globe: Globe2,
   smartphone: Smartphone,
@@ -63,12 +64,12 @@ export function Services({ items }: { items: any[] }) {
                         <p className="mt-2 flex-1 text-sm leading-6 text-muted">
                           {item.description}
                         </p>
-                        <a
-                          href="#contact"
+                        <Link
+                          href="/contacto"
                           className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-secondary"
                         >
                           Conocer más <ArrowRight size={15} />
-                        </a>
+                        </Link>
                       </motion.article>
                     );
                   })}

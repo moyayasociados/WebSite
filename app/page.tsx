@@ -1,4 +1,5 @@
 import { Footer } from "@/components/layout/footer";
+import { LandingRouteScroller } from "@/components/layout/landing-route-scroller";
 import { Header } from "@/components/layout/header";
 import { WhatsAppFab } from "@/components/ui/whatsapp-fab";
 import { BlogSection } from "@/features/blog/components/blog-section";
@@ -13,6 +14,7 @@ export default async function HomePage() {
   const data = await getSiteData();
   return (
     <>
+      <LandingRouteScroller />
       <Header config={data} />
       <main>
         <Hero data={data} />

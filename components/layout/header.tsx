@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
+import Link from "next/link";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { whatsappUrl } from "@/shared/lib/whatsapp";
@@ -7,6 +8,11 @@ import {
   navigation as fallbackNavigation,
   siteConfig,
 } from "@/shared/constants/site";
+import {
+  landingPath,
+  landingRoutes,
+  landingSectionFromPath,
+} from "@/shared/lib/landing-navigation";
 export function Header({ config }: { config?: any }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -18,7 +24,9 @@ export function Header({ config }: { config?: any }) {
   const logoAlt = config?.site?.name ?? siteConfig.name;
   useEffect(() => {
     const sections = nav
-      .map((x: any) => document.getElementById(x.href.slice(1)))
+      .map((x: any) =>
+        document.getElementById(landingSectionFromPath(landingPath(x.href))),
+      )
       .filter(Boolean) as HTMLElement[];
     const obs = new IntersectionObserver(
       (es) => {
@@ -33,34 +41,64 @@ export function Header({ config }: { config?: any }) {
     return () => obs.disconnect();
   }, [nav]);
   const go = (href: string) => {
-    setActive(href.slice(1));
+    setActive(landingSectionFromPath(landingPath(href)));
     setOpen(false);
+  };
+
+  const isLandingPath = (pathname: string) =>
+    pathname === "/" || Object.values(landingRoutes).includes(pathname);
+
+  const navigateLanding = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    const targetPath = landingPath(href);
+    go(targetPath);
+
+    if (isLandingPath(window.location.pathname)) {
+      event.preventDefault();
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({}, "", targetPath);
+      }
+
+      const sectionId = landingSectionFromPath(targetPath);
+      document.getElementById(sectionId)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
   return (
     <header className="fixed top-0 z-50 w-full border-b border-gray-200/60 bg-white/90 shadow-sm backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-container items-center justify-between px-4 md:px-10">
-        <a href="#home" onClick={() => go("#home")} className="group shrink-0">
+        <Link
+          href="/inicio"
+          onClick={() => go("/inicio")}
+          className="group shrink-0"
+        >
           <img
             src={logoSrc}
             alt={logoAlt}
             className="h-12 w-auto object-contain transition-transform group-hover:scale-[1.03]"
           />
-        </a>
+        </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {nav.map((item: any) => {
-            const is = active === item.href.slice(1);
+            const is =
+              active === landingSectionFromPath(landingPath(item.href));
             return (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
-                onClick={() => go(item.href)}
+                href={landingPath(item.href)}
+                onClick={(event) => navigateLanding(event, item.href)}
                 className={`relative px-2 py-2 text-sm font-medium transition-colors ${is ? "font-bold text-secondary" : "text-muted hover:text-primary"}`}
               >
                 {item.label}
                 <span
                   className={`absolute inset-x-0 -bottom-0.5 h-0.5 bg-secondary transition-transform ${is ? "scale-x-100" : "scale-x-0"}`}
                 />
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -74,7 +112,7 @@ export function Header({ config }: { config?: any }) {
             <MessageCircle size={18} />
             WhatsApp
           </a>
-          <Button href="#contact" onClick={() => go("#contact")}>
+          <Button href="/contacto" onClick={() => go("/contacto")}>
             Agendar Consulta
           </Button>
         </div>
@@ -89,14 +127,14 @@ export function Header({ config }: { config?: any }) {
       {open && (
         <nav className="border-t bg-white px-4 py-4 md:hidden">
           {nav.map((item: any) => (
-            <a
+            <Link
               key={item.href}
-              href={item.href}
-              onClick={() => go(item.href)}
-              className={`block border-b border-gray-100 py-3 font-medium ${active === item.href.slice(1) ? "text-secondary" : "text-primary"}`}
+              href={landingPath(item.href)}
+              onClick={(event) => navigateLanding(event, item.href)}
+              className={`block border-b border-gray-100 py-3 font-medium ${active === landingSectionFromPath(landingPath(item.href)) ? "text-secondary" : "text-primary"}`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <a
             href={whatsappUrl(config?.contact?.whatsapp)}

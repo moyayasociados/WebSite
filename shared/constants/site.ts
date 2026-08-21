@@ -16,12 +16,12 @@ export const siteConfig = {
   },
 };
 export const navigation = [
-  { label: "Inicio", href: "#home" },
-  { label: "Servicios", href: "#services" },
-  { label: "Sobre Nosotros", href: "#about" },
-  { label: "Proceso", href: "#process" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Inicio", href: "/inicio" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Sobre Nosotros", href: "/sobre-nosotros" },
+  { label: "Proceso", href: "/proceso" },
+  { label: "Blog", href: "/novedades" },
+  { label: "Contacto", href: "/contacto" },
 ];
 export const heroContent = {
   eyebrow: "Tecnología + Contabilidad",

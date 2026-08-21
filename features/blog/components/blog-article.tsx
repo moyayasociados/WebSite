@@ -136,7 +136,7 @@ export function BlogArticle({
           financieros.
         </p>
         <a
-          href="/#contact"
+          href="/contacto"
           className="mt-8 inline-flex items-center gap-2 rounded bg-secondary px-8 py-3 font-semibold text-primary transition-transform hover:-translate-y-1"
         >
           Contactar para asesoría →

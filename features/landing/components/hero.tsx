@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 const fallbackImage =
   "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=85";
 export function Hero({ data }: { data: any }) {
@@ -43,21 +44,21 @@ export function Hero({ data }: { data: any }) {
           {h.description}
         </p>
         <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button href={h.primaryLink ?? "#contact"} variant="secondary">
+          <Button href={h.primaryLink ?? "/contacto"} variant="secondary">
             {h.primaryCta}
             <ArrowRight size={18} />
           </Button>
-          <Button href={h.secondaryLink ?? "#services"} variant="outline">
+          <Button href={h.secondaryLink ?? "/servicios"} variant="outline">
             {h.secondaryCta}
           </Button>
         </div>
-        <a
-          href="#services"
+        <Link
+          href="/servicios"
           className="mx-auto mt-16 block w-fit animate-float text-white/60 transition hover:text-secondary"
           aria-label="Bajar a servicios"
         >
           <ArrowDown />
-        </a>
+        </Link>
       </motion.div>
     </section>
   );
