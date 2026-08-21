@@ -15,7 +15,7 @@ import {
 } from "@/shared/lib/landing-navigation";
 export function Header({ config }: { config?: any }) {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("home");
+  const [active, setActive] = useState<string | null>("home");
   const nav = config?.navigation?.items ?? fallbackNavigation;
   const logoSrc =
     typeof config?.site?.logo === "string"
@@ -23,6 +23,10 @@ export function Header({ config }: { config?: any }) {
       : (config?.site?.logo?.src ?? siteConfig.logo.src);
   const logoAlt = config?.site?.name ?? siteConfig.name;
   useEffect(() => {
+    if (!isLandingPath(window.location.pathname)) {
+      setActive(null);
+      return;
+    }
     const sections = nav
       .map((x: any) =>
         document.getElementById(landingSectionFromPath(landingPath(x.href))),

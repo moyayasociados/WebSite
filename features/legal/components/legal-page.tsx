@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Section = { id: string; title: string; content: React.ReactNode };
 export function LegalPage({
@@ -15,6 +15,52 @@ export function LegalPage({
   sections: Section[];
 }) {
   const [active, setActive] = useState(sections[0]?.id);
+
+  useEffect(() => {
+    const sectionElements = sections
+      .map((section) => document.getElementById(section.id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    if (!sectionElements.length) return;
+
+    const visibleSections = new Map<string, number>();
+
+    const updateActiveSection = () => {
+      const visible = Array.from(visibleSections.entries()).sort(
+        ([, firstRatio], [, secondRatio]) => secondRatio - firstRatio,
+      )[0];
+
+      if (visible) {
+        setActive(visible[0]);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+
+          if (entry.isIntersecting) {
+            visibleSections.set(id, entry.intersectionRatio);
+          } else {
+            visibleSections.delete(id);
+          }
+        });
+
+        updateActiveSection();
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -55% 0px",
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    sectionElements.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [sections]);
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-container px-4 pb-24 pt-32 md:px-10">
       <div className="mb-12 border-b border-slate-200 pb-8">
