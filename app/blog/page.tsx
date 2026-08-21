@@ -1,2 +1,31 @@
-import { Header } from '@/components/layout/header'; import { Footer } from '@/components/layout/footer'; import { BlogFilters } from '@/features/blog/components/blog-filters'; import { getPosts } from '@/features/blog/lib/posts';
-export default async function BlogPage(){const posts=await getPosts();return <><Header/><main className="min-h-screen bg-background px-4 pb-24 pt-32 md:px-10"><div className="mx-auto max-w-container"><header className="mb-12 max-w-3xl"><span className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">Blog</span><h1 className="mt-3 font-display text-4xl font-bold leading-tight text-primary md:text-5xl">Últimas Novedades y Actualizaciones</h1><p className="mt-4 text-lg leading-8 text-muted">Manténgase informado con nuestros análisis, perspectivas y noticias sobre el mundo de la tecnología, contabilidad y negocios empresariales.</p></header><BlogFilters posts={posts}/></div></main><Footer/></>}
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { BlogFilters } from "@/features/blog/components/blog-filters";
+import { getPosts } from "@/features/blog/lib/posts";
+export default async function BlogPage() {
+  const posts = await getPosts();
+  return (
+    <>
+      <Header />
+      <main className="min-h-screen bg-background px-4 pb-24 pt-32 md:px-10">
+        <div className="mx-auto max-w-container">
+          <header className="mb-12 max-w-3xl">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">
+              Blog
+            </span>
+            <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-primary md:text-5xl">
+              Últimas Novedades y Actualizaciones
+            </h1>
+            <p className="mt-4 text-lg leading-8 text-muted">
+              Manténgase informado con nuestros análisis, perspectivas y
+              noticias sobre el mundo de la tecnología, contabilidad y negocios
+              empresariales.
+            </p>
+          </header>
+          <BlogFilters posts={posts} />
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}

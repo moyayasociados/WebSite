@@ -9,6 +9,17 @@ export function Footer({ config }: { config?: any }) {
       : (site.logo?.src ?? siteConfig.logo.src);
   const social = config?.social ?? siteConfig.social;
   const footer = config?.footer ?? {};
+  const companyLinks = [
+    ["Servicios", "/#services"],
+    ["Sobre Nosotros", "/#about"],
+    ["Blog", "/#blog"],
+    ["Contacto", "/#contact"],
+  ];
+  const legalLinks = [
+    ["Política de Privacidad", "/politica-privacidad"],
+    ["Términos de Servicio", "/terminos-servicio"],
+    ["Política de Cookies", "/politica-cookies"],
+  ];
   return (
     <footer className="bg-primary py-14 text-white">
       <div className="mx-auto grid max-w-container gap-10 px-4 md:grid-cols-4 md:px-10">
@@ -45,32 +56,29 @@ export function Footer({ config }: { config?: any }) {
         <div>
           <h4 className="font-display text-lg font-bold">Legal</h4>
           <div className="mt-4 space-y-3 text-sm text-white/55">
-            <a className="block hover:text-secondary" href="#">
-              Política de Privacidad
-            </a>
-            <a className="block hover:text-secondary" href="#">
-              Términos de Servicio
-            </a>
-            <a className="block hover:text-secondary" href="#">
-              Política de Cookies
-            </a>
+            {legalLinks.map(([label, href]) => (
+              <Link
+                key={href}
+                className="block hover:text-secondary"
+                href={href}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
         <div>
           <h4 className="font-display text-lg font-bold">Empresa</h4>
           <div className="mt-4 space-y-3 text-sm text-white/55">
-            <a className="block hover:text-secondary" href="#services">
-              Servicios
-            </a>
-            <a className="block hover:text-secondary" href="#about">
-              Sobre Nosotros
-            </a>
-            <a className="block hover:text-secondary" href="#blog">
-              Blog
-            </a>
-            <a className="block hover:text-secondary" href="#contact">
-              Contacto
-            </a>
+            {companyLinks.map(([label, href]) => (
+              <Link
+                key={href}
+                className="block hover:text-secondary"
+                href={href}
+              >
+                {label}
+              </Link>
+            ))}
             <Link
               className="block pt-3 text-white/40 transition hover:text-secondary"
               href="/portal/login"
