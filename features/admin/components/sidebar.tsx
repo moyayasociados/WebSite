@@ -35,7 +35,7 @@ export function AdminSidebar({
     >
       <div className="flex h-20 items-center justify-between border-b border-white/10 px-6">
         <img
-          src="/logtipoMoyayAsociados1.png"
+          src="/favicon.png"
           alt="Moya y Asociados"
           className="h-12 w-auto object-contain brightness-0 invert"
         />

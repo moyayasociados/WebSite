@@ -7,12 +7,26 @@ export default function PortalLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    const nextErrors: { email?: string; password?: string } = {};
+    if (!email.trim())
+      nextErrors.email = "El correo electrónico es obligatorio.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+      nextErrors.email = "Ingresa un correo electrónico válido.";
+    if (!password) nextErrors.password = "La contraseña es obligatoria.";
+    else if (password.length < 6)
+      nextErrors.password = "La contraseña debe tener al menos 6 caracteres.";
+    setFieldErrors(nextErrors);
+    if (Object.keys(nextErrors).length) return;
+    setLoading(true);
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -43,7 +57,7 @@ export default function PortalLogin() {
         <div className="grid w-full overflow-hidden rounded-2xl bg-white shadow-2xl md:grid-cols-2">
           <div className="hidden bg-primary p-12 text-white md:flex md:flex-col md:justify-between">
             <img
-              src="/logtipoMoyayAsociados1.png"
+              src="/favicon.png"
               alt="Moya y Asociados"
               className="h-20 w-auto object-contain object-left brightness-0 invert"
             />
@@ -66,7 +80,7 @@ export default function PortalLogin() {
           <div className="p-8 md:p-12">
             <div className="md:hidden">
               <img
-                src="/logtipoMoyayAsociados1.png"
+                src="/favicon.png"
                 alt="Moya y Asociados"
                 className="h-16 w-auto object-contain"
               />
@@ -93,13 +107,21 @@ export default function PortalLogin() {
                     />
                     <input
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setFieldErrors((v) => ({ ...v, email: undefined }));
+                      }}
                       type="email"
                       required
-                      className="w-full rounded-lg border border-slate-200 py-3 pl-10 pr-4 outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                      className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none focus:ring-2 ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-200 focus:border-secondary focus:ring-secondary/20"}`}
                       placeholder="admin@empresa.com"
                     />
                   </div>
+                  {fieldErrors.email && (
+                    <p className="mt-1.5 text-xs font-medium text-red-600">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-primary">
@@ -112,13 +134,21 @@ export default function PortalLogin() {
                     />
                     <input
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        setFieldErrors((v) => ({ ...v, password: undefined }));
+                      }}
                       type="password"
                       required
-                      className="w-full rounded-lg border border-slate-200 py-3 pl-10 pr-4 outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                      className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none focus:ring-2 ${fieldErrors.password ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-200 focus:border-secondary focus:ring-secondary/20"}`}
                       placeholder="••••••••"
                     />
                   </div>
+                  {fieldErrors.password && (
+                    <p className="mt-1.5 text-xs font-medium text-red-600">
+                      {fieldErrors.password}
+                    </p>
+                  )}
                 </div>
                 {error && (
                   <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">

@@ -6,6 +6,10 @@ export type FormField = {
   required?: boolean;
   options?: { label: string; value: string }[];
   rows?: number;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  validationMessage?: string;
 };
 
 export const contactFormFields: FormField[] = [
@@ -15,6 +19,8 @@ export const contactFormFields: FormField[] = [
     type: "text",
     placeholder: "Tu nombre",
     required: true,
+    minLength: 3,
+    maxLength: 100,
   },
   {
     name: "email",
@@ -29,6 +35,8 @@ export const contactFormFields: FormField[] = [
     type: "tel",
     placeholder: "+593...",
     required: false,
+    minLength: 7,
+    maxLength: 20,
   },
   {
     name: "service",
@@ -36,6 +44,7 @@ export const contactFormFields: FormField[] = [
     type: "select",
     required: true,
     options: [
+      { label: "Selecciona un servicio", value: "" },
       { label: "Desarrollo de Software", value: "software" },
       { label: "Servicios Contables", value: "accounting" },
       { label: "Ambos / Integral", value: "integral" },
@@ -47,6 +56,8 @@ export const contactFormFields: FormField[] = [
     type: "textarea",
     placeholder: "Cuéntanos brevemente qué necesitas...",
     required: true,
+    minLength: 10,
+    maxLength: 2000,
     rows: 5,
   },
 ];

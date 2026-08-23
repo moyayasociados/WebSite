@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   icons: {
-    icon: "/logtipoMoyayAsociados1.png",
-    apple: "/logtipoMoyayAsociados1.png",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

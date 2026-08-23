@@ -3,11 +3,11 @@ export const siteConfig = {
   legalName: "Moya y Asociados",
   description:
     "Tecnología y contabilidad para empresas que quieren crecer con orden.",
-  logo: { src: "/logtipoMoyayAsociados1.png", alt: "Moya y Asociados" },
+  logo: { src: "/favicon.png", alt: "Moya y Asociados" },
   email: "contacto@moyayasociados.com",
   phone: "+593 999 999 999",
   office: "Quito, Ecuador",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "593999999999",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "593984641093",
   social: {
     instagram: "https://www.instagram.com/moyayasociados/",
     facebook: "https://www.facebook.com/moyayasociadosoficial",
