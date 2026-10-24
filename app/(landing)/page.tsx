@@ -10,6 +10,8 @@ import { Process } from "@/features/landing/components/process";
 import { Services } from "@/features/landing/components/services";
 import { Technology } from "@/features/landing/components/technology";
 import { getSiteData } from "@/features/landing/lib/site-data";
+// Cached and served statically; the admin API revalidates on every content change.
+export const revalidate = 3600;
 export default async function HomePage() {
   const data = await getSiteData();
   return (

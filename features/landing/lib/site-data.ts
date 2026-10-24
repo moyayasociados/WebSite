@@ -6,7 +6,7 @@ import {
   serviceGroups as fallbackServiceGroups,
   technologyGroups as fallbackTechnologyGroups,
 } from "@/shared/constants/site";
-import { createClient } from "@/shared/lib/supabase/server";
+import { createPublicClient } from "@/shared/lib/supabase/public";
 export type SiteData = {
   site: any;
   hero: any;
@@ -114,7 +114,7 @@ export async function getSiteData(): Promise<SiteData> {
     !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   )
     return fallback;
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const [content, services, technologies, processSteps, values] =
     await Promise.all([
       supabase.from("site_content").select("key,value"),

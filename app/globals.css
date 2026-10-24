@@ -37,6 +37,103 @@ body {
 .animate-float {
   animation: float 5s ease-in-out infinite;
 }
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+/* Scroll-reveal items start hidden via inline styles; keep them visible until JS takes over. */
+html:not([data-hydrated]) [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Page loader: delayed fade-in so fast loads never flash it. */
+@keyframes loader-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes loader-rise {
+  0%,
+  100% {
+    transform: translateY(70%);
+  }
+  40%,
+  75% {
+    transform: translateY(0);
+  }
+}
+@keyframes loader-arc {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+.loader-screen {
+  animation: loader-in 0.3s ease-out 0.2s both;
+}
+.loader-building {
+  transform-box: fill-box;
+  animation: loader-rise 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.loader-arc {
+  stroke-dasharray: 1;
+  animation: loader-arc 0.8s ease-out both;
+}
+@keyframes loader-rule {
+  from {
+    transform: scaleX(0);
+  }
+}
+.loader-wordmark {
+  animation: loader-in 0.6s ease-out 0.5s both;
+}
+.loader-rule {
+  animation: loader-rule 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.7s both;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+}
+@keyframes loader-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+@keyframes loader-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.loader-sweep {
+  animation: loader-sweep 1.5s cubic-bezier(0.45, 0, 0.55, 1) 1.2s infinite both;
+}
+.loader-tagline {
+  animation: loader-in 0.6s ease-out 0.9s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .loader-building,
+  .loader-arc,
+  .loader-wordmark,
+  .loader-rule,
+  .loader-tagline {
+    animation: none;
+  }
+  /* Keep a calm loading cue instead of the sweep. */
+  .loader-sweep {
+    left: 30%;
+    animation: loader-pulse 2s ease-in-out infinite;
+  }
+}
 .article-content h2 {
   margin-top: 2.5rem;
   margin-bottom: 1rem;

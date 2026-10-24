@@ -2,6 +2,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { BlogFilters } from "@/features/blog/components/blog-filters";
 import { getPosts } from "@/features/blog/lib/posts";
+// Cached and served statically; the admin API revalidates on every content change.
+export const revalidate = 3600;
 export default async function BlogPage() {
   const posts = await getPosts();
   return (

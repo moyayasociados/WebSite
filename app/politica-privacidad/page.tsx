@@ -2,6 +2,8 @@ import { getLegalPage } from "@/features/legal/lib/legal-pages";
 import { LegalPage } from "@/features/legal/components/legal-page";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+// Cached and served statically; the admin API revalidates on every content change.
+export const revalidate = 3600;
 export default async function Page() {
   const page = await getLegalPage("politica-privacidad");
   if (!page) return null;

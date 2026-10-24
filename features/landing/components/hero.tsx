@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -22,12 +21,7 @@ export function Hero({ data }: { data: any }) {
         <div className="absolute inset-0 bg-primary/80 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/85 to-primary" />
       </div>
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="relative z-10 mx-auto max-w-4xl text-center"
-      >
+      <div className="animate-fade-up relative z-10 mx-auto max-w-4xl text-center">
         <span className="mb-5 inline-flex rounded-full border border-secondary/40 bg-secondary/10 px-4 py-2 text-xs font-bold uppercase tracking-[.2em] text-secondary">
           {h.eyebrow}
         </span>
@@ -59,7 +53,7 @@ export function Hero({ data }: { data: any }) {
         >
           <ArrowDown />
         </Link>
-      </motion.div>
+      </div>
     </section>
   );
 }

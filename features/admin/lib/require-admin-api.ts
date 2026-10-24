@@ -1,3 +1,4 @@
-import { NextResponse } from 'next/server'; import { createClient } from '@/shared/lib/supabase/server';
+import { NextResponse } from 'next/server'; import { revalidatePath } from 'next/cache'; import { createClient } from '@/shared/lib/supabase/server';
 export async function requireAdminApi(){const supabase=await createClient();const {data:{user},error}=await supabase.auth.getUser();if(error||!user)return {supabase,user:null,response:NextResponse.json({message:'No autenticado'},{status:401})};const {data:admin}=await supabase.from('admin_users').select('user_id,display_name').eq('user_id',user.id).maybeSingle();if(!admin)return {supabase,user,response:NextResponse.json({message:'No autorizado'},{status:403})};return {supabase,user,response:null};}
+export function revalidatePublicPages(){revalidatePath('/','layout');}
 export function errorResponse(error:unknown){console.error(error);return NextResponse.json({message:'No fue posible completar la operación'},{status:500});}

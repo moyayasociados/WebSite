@@ -1,6 +1,8 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { LegalPage } from "@/features/legal/components/legal-page";
+// Cached and served statically; the admin API revalidates on every content change.
+export const revalidate = 3600;
 export default function Page() {
   return (
     <>

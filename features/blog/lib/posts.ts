@@ -1,6 +1,6 @@
 import type { BlogBlock, BlogPost } from "@/shared/types/content";
 import { mockPosts } from "./mock-posts";
-import { createClient } from "@/shared/lib/supabase/server";
+import { createPublicClient } from "@/shared/lib/supabase/public";
 function legacyToHtml(blocks: BlogBlock[] = []) {
   return blocks
     .map((block) => {
@@ -65,7 +65,7 @@ export async function getPosts(): Promise<BlogPost[]> {
       ...p,
       contentHtml: p.contentHtml || legacyToHtml(p.content),
     }));
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
@@ -88,7 +88,7 @@ export async function getPostBySlug(
     !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   )
     return mockPosts.find((p) => p.slug === slug);
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
