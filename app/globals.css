@@ -55,7 +55,7 @@ html:not([data-hydrated]) [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }
-/* Page loader: delayed fade-in so fast loads never flash it. */
+/* Page loader: the navy backdrop shows at once (no white flash); content fades in late so fast loads barely show it. */
 @keyframes loader-in {
   from {
     opacity: 0;
@@ -76,7 +76,7 @@ html:not([data-hydrated]) [data-reveal] {
     stroke-dashoffset: 1;
   }
 }
-.loader-screen {
+.loader-content {
   animation: loader-in 0.3s ease-out 0.2s both;
 }
 .loader-building {

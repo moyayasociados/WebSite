@@ -20,9 +20,9 @@ export default function Loading() {
     <div
       role="status"
       aria-live="polite"
-      className="loader-screen fixed inset-0 z-[100] grid place-items-center bg-primary px-4"
+      className="fixed inset-0 z-[100] grid place-items-center bg-primary px-4"
     >
-      <div className="flex flex-col items-center">
+      <div className="loader-content flex flex-col items-center">
         {/* Simplified logo mark: blue tower, silver building and gold bars rising from the swoosh. */}
         <svg viewBox="0 0 120 84" className="h-[8.75rem] w-[12.5rem]" aria-hidden="true">
           <defs>
